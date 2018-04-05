@@ -1,0 +1,69 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";       // fungsi kalau nilai return/argumennya gada
+
+package grpc;
+
+message AddCustomerReq{
+    string name=1;
+    int32 customerType=2;
+    string mobile=3;
+    string email=4;
+    string gender=5;
+    string callbackPhone=6;
+    int32 status=7;
+}
+
+message ReadCustomerByMobileReq{
+    string mobile=1;
+}
+
+message ReadCustomerByMobileResp{
+    int64 customerId=1;
+    string name=2;
+    int32 customerType=3;
+    string mobile=4;
+    string email=5;
+    string gender=6;
+    string callbackPhone=7;
+    int32 status=8;
+}
+
+
+message ReadCustomerResp{
+    repeated ReadCustomerByMobileResp allCustomer=1;
+}
+
+message UpdateCustomerReq{
+    int64 customerId=1;
+    string name=2;
+    int32 customerType=3;
+    string mobile=4;
+    string email=5;
+    string gender=6;
+    string callbackPhone=7;
+    int32 status=8;
+}
+
+message ReadCustomerByEmailReq{
+    string email=1;
+}
+
+message ReadCustomerByEmailResp{
+    int64 customerId=1;
+    string name=2;
+    int32 customerType=3;
+    string mobile=4;
+    string email=5;
+    string gender=6;
+    string callbackPhone=7;
+    int32 status=8;
+}
+
+service CustomerService{
+    rpc AddCustomer(AddCustomerReq) returns (google.protobuf.Empty) {};
+    rpc ReadCustomerByMobile(ReadCustomerByMobileReq) returns (ReadCustomerByMobileResp) {};
+    rpc ReadCustomer(google.protobuf.Empty) returns (ReadCustomerResp){};
+    rpc UpdateCustomer(UpdateCustomerReq) returns (google.protobuf.Empty){};
+    rpc ReadCustomerByEmail(ReadCustomerByEmailReq) returns (ReadCustomerByEmailResp){};
+}

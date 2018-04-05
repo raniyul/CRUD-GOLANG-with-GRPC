@@ -1,0 +1,88 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";       // fungsi kalau nilai return/argumennya gada
+
+package grpc;
+
+message AddItemReq{
+    string namaItem=1;
+    string merk=2;
+    int32 IDSupplier=3;
+    int32 status=4;
+    string createdBy=5;
+    string createdOn=6;
+    string keterangan=7;
+}
+
+message ReadItemByIDSupplierReq{
+    int32 IDSupplier=1;
+}
+
+message ReadItemByIDSupplierResp{
+    int32 IDItem =1;
+    string namaItem=2;
+    string merk=3;
+    int32 IDSupplier=4;
+    int32 status=5;
+    string createdBy=6;
+    string createdOn=7;
+    string updateBy=8;
+    string updateOn=9;
+    string keterangan=10;
+}
+
+message ReadByKeteranganReq{
+    int32   IDItem=1;
+    string namaItem=2;
+    string  merk=3;
+    string IDSupplier=4;
+    int32 status=5;
+    string createdBy=6;
+    string createdOn=7;
+    string updateBy=8;
+    string updateOn=9;
+    string keterangan=10;
+}
+
+message ReadByKeteranganResp{
+    repeated ReadItemByIDSupplierResp allKeterangan=1;
+}
+
+message ReadItemResp{
+    repeated ReadItemByIDSupplierResp allItem=1;
+}
+
+message UpdateItemReq{
+    int32 IDItem =1;
+    string namaItem=2;
+    string merk=3;
+    int32 IDSupplier=4;
+    int32 status=5;
+    string updateBy=6;
+    string updateOn=7;
+}
+
+message ReadItemBystatusReq{
+    int32 status=1;
+}
+
+message ReadItemBystatusResp{
+    int32 IDItem =1;
+    string namaItem=2;
+    string merk=3;
+    int32 IDSupplier=4;
+    int32 status=5;
+    string createdBy=6;
+    string createdOn=7;
+    string updateBy=8;
+    string updateOn=9;
+}
+
+service ItemService{
+    rpc AddItem(AddItemReq) returns (google.protobuf.Empty) {};
+    rpc ReadItemByIDSupplier(ReadItemByIDSupplierReq) returns (ReadItemByIDSupplierResp) {};
+    rpc ReadItem(google.protobuf.Empty) returns (ReadItemResp){};
+    rpc UpdateItem(UpdateItemReq) returns (google.protobuf.Empty){};
+    rpc ReadItemBystatus(ReadItemBystatusReq) returns (ReadItemBystatusResp){};
+    rpc ReadByKeterangan(ReadByKeteranganReq) returns (ReadByKeteranganResp) {};
+}

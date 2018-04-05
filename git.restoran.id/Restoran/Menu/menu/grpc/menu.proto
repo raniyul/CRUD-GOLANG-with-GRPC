@@ -1,0 +1,48 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";
+
+package grpc;
+
+message AddMenuReq{
+    string namamenu=1;
+    int32  harga=2;
+    int32 idkategorimenu=3;
+    int32 status=4;
+    string createdby=5;
+ 
+}
+
+message ReadMenuByNamaMenuReq{
+    string namamenu=1;
+}
+
+
+message ReadMenuByNamaMenuResp{
+    int32   idmenu=1;
+    string namamenu=2;
+    int32  harga=3;
+    int32 idkategorimenu=4;
+    int32 status=5;
+    string createdby=6;
+}
+
+message ReadMenuResp{
+    repeated ReadMenuByNamaMenuResp allMenu=1;
+}
+
+message UpdateMenurReq{
+    int32   idmenu=1;
+    string namamenu=2;
+    int32  harga=3;
+    int32 idkategorimenu=4;
+    int32 status=5;
+    string updateBy=6;
+}
+service MenuService{
+    rpc AddMenu (AddMenuReq) returns (google.protobuf.Empty){};
+    rpc ReadMenuByNamaMenu(ReadMenuByNamaMenuReq) returns (ReadMenuByNamaMenuResp) {};
+    rpc ReadMenu(google.protobuf.Empty) returns (ReadMenuResp){};
+    rpc UpdateMenu(UpdateMenurReq) returns (google.protobuf.Empty){};
+
+}

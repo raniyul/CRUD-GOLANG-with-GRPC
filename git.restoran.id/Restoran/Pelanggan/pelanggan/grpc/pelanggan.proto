@@ -1,0 +1,67 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";
+
+package grpc;
+
+message AddPelangganReq{
+    string namaPelanggan=1;
+    string telepon=2;
+    string email=3;
+    int32 status=4;
+    string createdBy=5;
+    string keterangan=6;
+ 
+}
+
+message ReadByNamaPelangganReq{
+    string namaPelanggan=1;
+}
+
+
+message ReadByNamaPelangganResp{
+    int32   IDPelanggan=1;
+    string namaPelanggan=2;
+    string telepon=3;
+    string email=4;
+    int32 status=5;
+    string createdBy=6;
+    string keterangan=7;
+}
+
+message ReadByKeteranganResp{
+    repeated ReadByNamaPelangganResp allKeterangan=1;
+}
+
+
+message ReadByKeteranganReq{
+    int32   IDPelanggan=1;
+    string namaPelanggan=2;
+    string telepon=3;
+    string email=4;
+    int32 status=5;
+    string createdBy=6;
+    string keterangan=7;
+}
+
+message ReadPelangganResp{
+    repeated ReadByNamaPelangganResp allPelanggan=1;
+}
+
+message UpdatePelangganReq{
+    int32   IDPelanggan=1;
+    string namaPelanggan=2;
+    string telepon=3;
+    string email=4;
+    int32 status=5;
+    string updateBy=6;
+    string keterangan=7;
+}
+service PelangganService{
+    rpc AddPelanggan (AddPelangganReq) returns (google.protobuf.Empty){};
+    rpc ReadByNamaPelanggan(ReadByNamaPelangganReq) returns (ReadByNamaPelangganResp) {};
+    rpc ReadPelanggan(google.protobuf.Empty) returns (ReadPelangganResp){};
+    rpc UpdatePelanggan(UpdatePelangganReq) returns (google.protobuf.Empty){};
+    rpc ReadByKeterangan(ReadByKeteranganReq) returns (ReadByKeteranganResp) {};
+
+}
